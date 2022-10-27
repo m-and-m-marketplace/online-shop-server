@@ -22,6 +22,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    admin: {
+      type: Boolean,
+      default: false
+    },
     watchlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
   },
   {

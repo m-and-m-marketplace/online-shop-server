@@ -7,12 +7,12 @@ const User = require('../models/User.model');
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // POST /api/orders  -  Creates a new order
-router.post('/order', isAuthenticated, (req, res, next) => {
+router.post('/orders', isAuthenticated, (req, res, next) => {   //
 //    const { customer, products } = req.body;
 
     const newOrder = {
-        customer,
-        products: []
+        customer: req.payload._id,
+        items: req.body.items
     };
 
     Order.create(newOrder)
@@ -31,7 +31,7 @@ router.post('/order', isAuthenticated, (req, res, next) => {
 // GET /api/orders  -  Get list of orders
 router.get('/orders', (req, res, next) => {
     Order.find()
-    //  .populate('tasks')
+      .populate('products')
       .then(allOrders => res.json(allOrders))
       .catch(err => {
         console.log("error getting list of orders...", err);
@@ -52,7 +52,7 @@ router.get('/orders/:orderId', (req, res, next) => {
       return;
     }
     Order.findById(orderId)
-   //   .populate('tasks')
+      .populate('products')
       .then(order => res.json(order))
       .catch(err => {
         console.log("error getting specific order...", err);
@@ -65,7 +65,7 @@ router.get('/orders/:orderId', (req, res, next) => {
 
 
 // PUT  /api/orders/:orderId  -  Updates a specific order by id
-router.put('/orders/:orderId', isAuthenticated, (req, res, next) => {
+router.put('/orders/:orderId', isAuthenticated, (req, res, next) => {  //
     const { orderId } = req.params;
    
     if (!mongoose.Types.ObjectId.isValid(orderId)) {
@@ -86,7 +86,7 @@ router.put('/orders/:orderId', isAuthenticated, (req, res, next) => {
 
 
 // DELETE  /api/orders/:orderId  -  Deletes a specific order by id
-router.delete('/orders/:orderId', isAuthenticated, (req, res, next) => {
+router.delete('/orders/:orderId', isAuthenticated, (req, res, next) => {   // 
     const { orderId } = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(orderId)) {

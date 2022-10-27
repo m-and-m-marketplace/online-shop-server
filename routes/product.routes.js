@@ -40,7 +40,7 @@ router.get('/products/:productId', (req, res, next) => {
   });
 
   // POST /api/products/create  -  Creates a new product  
-router.post('/products/create', (req, res, next) => {             //isAuthenticated,
+router.post('/products/create', isAuthenticated, (req, res, next) => {             
     const { title, description, price, image_URL, specs, rating } = req.body; 
 
     const newProduct = {
@@ -66,7 +66,7 @@ router.post('/products/create', (req, res, next) => {             //isAuthentica
 
 
   // PUT  /api/products/:productId  -  Updates a specific product by id
-    router.put('/products/:productId',  (req, res, next) => {     //isAuthenticated,
+    router.put('/products/:productId', isAuthenticated,  (req, res, next) => {     //
     const { productId } = req.params;
    
     if (!mongoose.Types.ObjectId.isValid(productId)) {
@@ -87,7 +87,7 @@ router.post('/products/create', (req, res, next) => {             //isAuthentica
 
 
    // DELETE  /api/products/:productId  -  Deletes a specific product by id
-router.delete('/products/:productId',  (req, res, next) => {    ///isAuthenticated,
+router.delete('/products/:productId', isAuthenticated, (req, res, next) => {    ///
     const { productId } = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(productId)) {

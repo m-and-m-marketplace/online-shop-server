@@ -1,0 +1,26 @@
+User  --> CR
+Product  --> CR  ¿UD?
+Order  --> CR  ¿UD?
+
+
+MVP:
+- who creates products:
+  - 1. any logged in user can CRUD product
+  - 2. only admin can C products + full CRUD on orders
+    - in User model, add a field isAdmin (default false)
+    - in readme and/or login page: provide credentials for an admin user
+
+- user can only buy 1 product (can choose quantity but can not choose multiple products)
+  - react app: only one button "buy now"
+
+
+Bonus:
+- only owner can UD +++++
+- shopping cart, stored in state (user can buy multiple products) +++
+  - button "add to cart" + display shopping cart in the top menu
+
+- images ++
+- responsive ++
+- payments (ex. Stripe) +
+- emails
+- store shopping cart in DB
