@@ -20,15 +20,14 @@ const userSchema = new Schema(
     },
     address: {
       type: String,
-      required: true
+      required: true,
     },
-    watchlist: [{ type: Schema.Types.ObjectId, ref: "Product" }]
+    watchlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
-  },
-
+  }
 );
 
 const User = model("User", userSchema);
