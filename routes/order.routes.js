@@ -1,12 +1,10 @@
 const router = require("express").Router();
 const mongoose = require("mongoose")
 
-const mongoose = require('mongoose');
-
 const Product = require('../models/Product.model');
 const Order = require('../models/Order.model');
 const User = require('../models/User.model');
-
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // POST /api/orders  -  Creates a new order
 router.post('/order', isAuthenticated, (req, res, next) => {
