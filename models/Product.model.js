@@ -18,21 +18,21 @@ const productSchema = new Schema(
     },
     image_URL: {
       type: String,
-      required: [true, "description is required."],
+      required: [true, "image URL is required."],
     },
     specs: {
       type: String,
       required: [true, "specs is required."],
     },
-    review: {
+    rating: {
       type: Number,
-      required: [true, "review is required."],
+      required: [true, "rating is required."],
     },
   },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
-  }
+   {
+     // this second object adds extra properties: `createdAt` and `updatedAt`
+     timestamps: true,
+   }
 );
 
 const Product = model("Product", productSchema);
