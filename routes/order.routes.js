@@ -6,15 +6,15 @@ const Order = require('../models/Order.model');
 const User = require('../models/User.model');
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
-// POST /api/orders  -  Creates a new order
-router.post('/orders', isAuthenticated, (req, res, next) => {   //
+// POST /api/orders/create  -  Creates a new order
+router.post('/orders/create', isAuthenticated, (req, res, next) => {   //
 //    const { customer, products } = req.body;
 
     const newOrder = {
         customer: req.payload._id,
         items: req.body.items
     };
-
+    //Product.findById()
     Order.create(newOrder)
         .then(response => res.json(response))
         .catch(err => {
