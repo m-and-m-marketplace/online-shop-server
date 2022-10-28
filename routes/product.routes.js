@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const mongoose = require("mongoose")
 
-
 const Product = require('../models/Product.model');
 
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
+
+const fileUploader = require("../config/cloudinary.config");
 
 // GET /api/products Get list of products
 router.get('/products', (req, res, next) => {
@@ -40,8 +41,9 @@ router.get('/products/:productId', (req, res, next) => {
   });
 
   // POST /api/products/create  -  Creates a new product  
-router.post('/products/create', isAuthenticated, (req, res, next) => {             
-    const { title, description, price, image_URL, specs, rating } = req.body; 
+router.post('/products/create', isAuthenticated, fileUploader.single("image_URL"),(req, res, next) => {             
+    const { title, description, price, specs, rating } = req.body; 
+    const image_URL = req.file.path
 
     const newProduct = {
         title,
