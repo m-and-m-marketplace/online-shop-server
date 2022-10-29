@@ -27,6 +27,15 @@ const userSchema = new Schema(
       default: false
     },
     watchlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    shoppingCart: [
+      {
+          product: {
+              type: Schema.Types.ObjectId,
+              ref: "Product"
+          },
+          amount: Number
+      }
+  ],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
