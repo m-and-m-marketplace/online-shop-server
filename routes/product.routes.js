@@ -61,14 +61,21 @@ router.post("/products/:productId/add", isAuthenticated, (req, res, next) => {
     });
 });
 
+
+// POST /api/products/upload-image - Uploads Image
+router.post("/products/upload-image", isAuthenticated, fileUploader.single("image_URL"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error("No file uploaded!"));
+    return;
+  }
+    
+  res.json({ image_URL: req.file.path });
+});
+
+
 // POST /api/products/create  -  Creates a new product
-router.post(
-  "/products/create",
-  isAuthenticated,
-  fileUploader.single("image_URL"),
-  (req, res, next) => {
-    const { title, description, price, specs, rating } = req.body;
-    const image_URL = req.file.path;
+router.post("/products/create", isAuthenticated, (req, res, next) => {
+    const { title, description, price, image_URL, specs, rating } = req.body;
 
     const newProduct = {
       title,
