@@ -40,26 +40,7 @@ router.get("/products/:productId", (req, res, next) => {
     });
 });
 
-// POST /api/products/:productId/add  Retrieves a specific product by id
-router.post("/products/:productId/add", isAuthenticated, (req, res, next) => {
-  // const { id } = req.params;
-  const newProduct  = req.body.newItem;
-  const userId = req.payload._id
 
-
-  User.findByIdAndUpdate(userId, { $push: { watchlist: newProduct } }, {new: true})
-    .then((result) => {
-      console.log(result);
-      // res.redirect("/");
-    })
-    .catch((err) => {
-      console.log("error adding to watchlist...", err);
-      res.status(500).json({
-        message: "error adding to watchlist...",
-        error: err,
-      });
-    });
-});
 
 
 // POST /api/products/upload-image - Uploads Image
