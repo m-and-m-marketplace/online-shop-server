@@ -6,6 +6,27 @@ const Order = require('../models/Order.model');
 const User = require('../models/User.model');
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
+// POST /api/orders/shopping-cart  -  adds items to shopping cart
+router.post('/orders/shopping-cart', isAuthenticated, (req, res, next) => {
+  const userId = req.payload._id
+  const newItems = {
+    product: req.body.items.product,
+    amount: req.body.items.amount
+  }
+
+
+User.findByIdAndUpdate(userId, { $push: { shoppingCart: newItems } }, {new: true})
+        .then(response => res.json(response))
+        .catch(err => {
+            console.log("error adding to shopping cart...", err);
+            res.status(500).json({
+                message: "error adding to shopping cart",
+                error: err
+            })
+        }
+        );
+});
+
 // POST /api/orders/create  -  Creates a new order
 router.post('/orders/create', isAuthenticated, (req, res, next) => {   //
 //    const { customer, products } = req.body;
