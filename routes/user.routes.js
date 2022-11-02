@@ -13,7 +13,7 @@ router.post('/orders/shopping-cart', isAuthenticated, (req, res, next) => {
     }
   
   
-  User.findByIdAndUpdate(userId, { $push: { shoppingCart: newItems } }, {new: true})
+  User.findByIdAndUpdate(userId, { $addToSet: { shoppingCart: newItems } }, {new: true})
           .then(response => res.json(response))
           .catch(err => {
               console.log("error adding to shopping cart...", err);
@@ -73,5 +73,23 @@ router.post("/products/:productId/add", isAuthenticated, (req, res, next) => {
         console.log(error)
     })
   })
+
+  // POST /api/orders/shopping-cart  -  adds items to shopping cart
+router.post('/orders/delete', isAuthenticated, (req, res, next) => {
+    const userId = req.payload._id
+  
+  
+  
+  User.findByIdAndUpdate(userId, {shoppingCart: []}, {new: true})
+          .then(response => res.json(response))
+          .catch(err => {
+              console.log("error emptying shopping cart...", err);
+              res.status(500).json({
+                  message: "error emptying shopping cart",
+                  error: err
+              })
+          }
+          );
+  });
 
   module.exports = router;

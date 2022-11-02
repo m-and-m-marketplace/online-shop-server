@@ -52,7 +52,7 @@ router.post('/orders/create', isAuthenticated, (req, res, next) => {   //
 // GET /api/orders  -  Get list of orders
 router.get('/orders', (req, res, next) => {
     Order.find()
-      .populate('products')
+     // .populate('Product')
       .then(allOrders => res.json(allOrders))
       .catch(err => {
         console.log("error getting list of orders...", err);
@@ -73,7 +73,7 @@ router.get('/orders/:orderId', (req, res, next) => {
       return;
     }
     Order.findById(orderId)
-      .populate('products')
+      .populate('items.product')
       .then(order => res.json(order))
       .catch(err => {
         console.log("error getting specific order...", err);
