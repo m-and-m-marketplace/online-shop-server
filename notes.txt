@@ -22,5 +22,4 @@ Bonus:
 - images ++
 - responsive ++
 - payments (ex. Stripe) +
-- emails
 - store shopping cart in DB

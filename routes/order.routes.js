@@ -33,11 +33,14 @@ router.post('/orders/create', isAuthenticated, (req, res, next) => {   //
 
     const newOrder = {
         customer: req.payload._id,
-        items: req.body.items
+        items: req.body.items,
     };
     //Product.findById()
     Order.create(newOrder)
-        .then(response => res.json(response))
+        .then(response => {
+          console.log(response);
+          res.json(response)
+        })
         .catch(err => {
             console.log("error creating a new order...", err);
             res.status(500).json({
@@ -50,8 +53,9 @@ router.post('/orders/create', isAuthenticated, (req, res, next) => {   //
 
 
 // GET /api/orders  -  Get list of orders
-router.get('/orders', (req, res, next) => {
-    Order.find()
+router.get('/orders', isAuthenticated, (req, res, next) => {
+ 
+    Order.find({customer: req.payload._id})
      // .populate('Product')
       .then(allOrders => res.json(allOrders))
       .catch(err => {
@@ -74,7 +78,10 @@ router.get('/orders/:orderId', (req, res, next) => {
     }
     Order.findById(orderId)
       .populate('items.product')
-      .then(order => res.json(order))
+      .then(order => {
+        console.log(order);
+        res.json(order)
+      })
       .catch(err => {
         console.log("error getting specific order...", err);
         res.status(500).json({

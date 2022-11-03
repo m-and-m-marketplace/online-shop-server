@@ -68,6 +68,7 @@ router.post("/products/:productId/add", isAuthenticated, (req, res, next) => {
     .populate("shoppingCart.amount")
     .then(response => {
         res.json(response)
+        console.log(response);
     })
     .catch(error => {
         console.log(error)
