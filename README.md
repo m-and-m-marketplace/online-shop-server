@@ -11,7 +11,7 @@ To run this app on your computer, start by forking and cloning this repo and ent
 ```
 $ cd online-shop-server
 $ npm install
-$ npm start
+$ npm run dev
 ```
 
 Next, create a .env file and add the following environment variables:
